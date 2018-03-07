@@ -1,0 +1,104 @@
+server:
+  port: 80
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+    dbcp:
+      max-active: 20
+      max-idle: 8
+      min-idle: 8
+      initial-size: 10
+    type: com.alibaba.druid.pool.DruidDataSource
+    #初始化连接大小
+    druid:  
+      initial-size: 8
+      #最小空闲连接数
+      min-idle: 5
+      #最大连接数
+      max-active: 10
+      #查询超时时间
+      query-timeout: 6000
+      #事务查询超时时间
+      transaction-query-timeout:  6000
+    #关闭空闲连接超时时间
+      remove-abandoned-timeout: 1800
+      
+      filter-class-names: stat
+      filters:  stat,config
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update    
+  http:
+    multipart:
+      max-file-size: 10Mb #上传文件的最大大小
+      max-request-size: 20Mb #支持的最大请求 
+#spring.http.multipart.enabled=true #默认支持文件上传.
+#spring.http.multipart.file-size-threshold=0 #支持文件写入磁盘.
+#spring.http.multipart.location= # 上传文件的临时目录
+  cache:
+    type: redis   #配置缓存类型 如果只引入了一种缓存可以不配置
+  jackson:
+    time-zone: Asia/Chongqing  #配置时区
+    date-format: yyyy/MM/dd HH:mm:ss   #全局格式化配置
+    default-property-inclusion: non-empty
+ # ACTIVEMQ (ActiveMQProperties)
+  activemq: 
+    in-memory: true
+#spring.activemq.broker-url= 
+#spring.activemq.password= 
+#spring.activemq.user= 
+#spring.activemq.packages.trust-all=false
+#spring.activemq.packages.trusted=
+#spring.activemq.pool.configuration.*= 
+#spring.activemq.pool.enabled=false
+#spring.activemq.pool.expiry-timeout=0
+#spring.activemq.pool.idle-timeout=30000
+#spring.activemq.pool.max-connections=1
+  mail:
+    host: smtp.mxhichina.com
+    username: xxxx@xxx.com
+    password: xxxxxx
+    properties: 
+      mail:
+        smtp:
+          auth: true
+  redis:
+    password: 
+    cluster:
+      nodes: 192.168.52.130:7001,192.168.52.130:7002,192.168.52.130:7003,192.168.52.130:7004,192.168.52.130:7005,192.168.52.130:7006       
+#端点配置          
+endpoints: 
+  sensitive: true
+  shutdown:
+    enabled: true
+    #保护端点
+security: 
+  basic:  
+    enabled:  true
+    #自定义路径
+    path: /manage 
+  user: 
+    name: admin 
+    password: admin
+management: 
+  security: 
+    roles: SUPERUSER
+  #自定义路径
+  context-path: /manage
+  
+ #mybatis
+mybatis:  
+  mapper-locations: classpath:mybatis/*.xml
+  type-aliases-package: com.wp.boot.bean   
+  
+
+          

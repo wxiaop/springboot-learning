@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+<img src="m1.jpg" />
+	<form method="post" action="/file/upload" enctype="multipart/form-data">
+		<input type="file" name="upfile" />
+		<input type="submit" value="Upload"/>
+	</form>
+	<input type="email"  />
+	<button id="send">Send</button>
+	<script type="text/javascript">
+	//<![CDATA[
+		var sendObj = document.querySelector("#send");
+		sendObj.onclick = function(){
+			var email = document.querySelector("input[type='email']").value;
+	
+				 
+			var xhr = new XMLHttpRequest();
+			if(xhr){
+				xhr.open("post","/mail?mail="+email,true);
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4 && this.status == 200) {
+						var data = this.responseText.trim();
+						var jsonData = eval("("+data+")");
+						alert(JSON.stringify(jsonData));
+					}
+				}
+				xhr.send();
+			}
+			
+		}
+		//]]>
+	</script>
+</body>
+</html>
